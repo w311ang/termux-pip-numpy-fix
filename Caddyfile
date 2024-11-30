@@ -1,0 +1,13 @@
+localhost:5285 {
+	handle /simple/numpy/* {
+		root .
+		file_server {
+			index index.html
+		}
+	}
+
+	reverse_proxy https://pypi.org {
+		header_up Host pypi.org
+		header_down location "^https://pypi.org" "http://localhost:5285"
+	}
+}
